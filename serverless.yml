@@ -32,14 +32,17 @@ functions:
       - httpApi: '*'
   read:
     handler: readMagnet.readMagnet
+    timeout: 30
     events:
       - schedule: rate(10 minutes)
   readJav:
     handler: readJav.readJav
+    timeout: 30
     events:
       - schedule: rate(10 minutes)
   readFc2:
     handler: readFc2.readFc2
+    timeout: 30
     events:
       - schedule: rate(10 minutes)
 
