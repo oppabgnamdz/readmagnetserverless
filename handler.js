@@ -35,7 +35,8 @@ app.get('/csv', async (req, res) => {
 	// const csv = new ObjectsToCsv(mapping);
 	// await csv.toDisk('./test.csv');
 	// console.log('path', path.join(__dirname, 'test.csv'));
-	res.status(500).json({ data: mapping });
+	console.log({ mapping });
+	res.status(200).json({ data: mapping });
 });
 
 app.get('/users/:userId', async function (req, res) {
