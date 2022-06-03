@@ -33,7 +33,15 @@ functions:
   read:
     handler: readMagnet.readMagnet
     events:
-      - schedule: rate(1 minute)
+      - schedule: rate(10 minutes)
+  readJav:
+    handler: readJav.readJav
+    events:
+      - schedule: rate(10 minutes)
+  readFc2:
+    handler: readFc2.readFc2
+    events:
+      - schedule: rate(10 minutes)
 
 resources:
   Resources:

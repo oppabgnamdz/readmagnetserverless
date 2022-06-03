@@ -7,10 +7,10 @@ const moment = require('moment');
 const USERS_TABLE = process.env.USERS_TABLE;
 const dynamoDbClient = new AWS.DynamoDB.DocumentClient();
 
-const readMagnet = async () => {
+const readFc2 = async () => {
 	let start = 0;
-	let end = 1;
-	let host = 'https://sukebei.nyaa.si/?s=leechers&o=desc';
+	let end = 2;
+	let host = 'https://www.141ppv.com/new?page=';
 	// let host =
 	// 	req.query?.host == 'jav'
 	// 		? `https://www.141jav.com/new?page=`
@@ -54,7 +54,7 @@ const readMagnet = async () => {
 					Item: {
 						userId: item?.url,
 						date: moment().format('YYYY-MM-DD'),
-						type: 'su',
+						type: 'fc2',
 					},
 				},
 			};
@@ -83,4 +83,4 @@ const readMagnet = async () => {
 		console.log({ e });
 	}
 };
-module.exports.readMagnet = readMagnet;
+module.exports.readFc2 = readFc2;

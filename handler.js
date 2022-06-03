@@ -1,6 +1,7 @@
 const AWS = require('aws-sdk');
 const express = require('express');
 const serverless = require('serverless-http');
+const moment = require('moment');
 
 const app = express();
 
@@ -14,12 +15,20 @@ app.get('/hello', (req, res) => {
 });
 
 app.get('/csv', async (req, res) => {
-	const date = req.query?.date
+	const date = req.query?.date;
+	const type = req.query?.type;
 	const { Items: items } = await dynamoDbClient
 		.scan({
 			TableName: USERS_TABLE,
-			FilterExpression: 'date = :date',
-			ExpressionAttributeValues: { ':date': date },
+			FilterExpression: '#date = :date AND #type = :type',
+			ExpressionAttributeValues: {
+				':date': date ? date : moment().format('YYYY-MM-DD'),
+				':type': type ? type : 'su',
+			},
+			ExpressionAttributeNames: {
+				'#date': 'date',
+				'#type': 'type',
+			},
 		})
 		.promise();
 	const mapping = items.map((item) => item.userId);
