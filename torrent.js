@@ -11,7 +11,7 @@ const torrent = async () => {
 	let start = 0;
 	let end = 3;
 	let base = 'https://jav-torrent.org';
-	let host = 'https://jav-torrent.org/new?page=2';
+	let host = 'https://jav-torrent.org/new?page=';
 
 	const url = (index) => {
 		return `${host}${index}`;
