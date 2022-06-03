@@ -1,6 +1,8 @@
 const AWS = require('aws-sdk');
 const express = require('express');
 const serverless = require('serverless-http');
+const ObjectsToCsv = require('objects-to-csv');
+const path = require('path');
 
 const app = express();
 
@@ -11,6 +13,25 @@ app.use(express.json());
 
 app.get('/hello', (req, res) => {
 	res.status(200).json({ error: 'hello world' });
+});
+
+app.get('/csv', async (req, res) => {
+	const { Items: items } = await dynamoDbClient
+		.scan({
+			TableName: USERS_TABLE,
+		})
+		.promise();
+	const mapping = items.map((item) => {
+		return { url: item.userId };
+	});
+	const csv = new ObjectsToCsv(mapping);
+	await csv.toDisk('./test.csv');
+	console.log('path', path.join(__dirname, 'test.csv'));
+	res.sendFile(path.join(__dirname, 'test.csv'), function (err) {
+		if (err) {
+		} else {
+		}
+	});
 });
 
 app.get('/users/:userId', async function (req, res) {

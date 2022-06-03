@@ -44,13 +44,26 @@ const readMagnet = async () => {
 			}
 
 			const needArr = arr.filter((item) => item.includes('magnet:'));
-			
+
 			data = [...data, ...needArr];
 		}
 		const mapping = data.map((item, index) => {
 			return { url: item };
 		});
-		console.log({ mapping });
+		const mappingPut = mapping.map((item, index) => {
+			return { PutRequest: { Item: { userId: item?.url } } };
+		});
+		const slice = Math.ceil(mappingPut.length / 25);
+		for (let i = 0; i < slice; i++) {
+			const params = {
+				RequestItems: {
+					[USERS_TABLE]: mappingPut.slice(25 * i, 25 * i + 25),
+				},
+			};
+			await dynamoDbClient.batchWrite(params).promise();
+		}
+
+		console.log({ mappingPut });
 		// console.log({ data });
 		// const csv = new ObjectsToCsv(mapping);
 		// await csv.toDisk('./test.csv');
