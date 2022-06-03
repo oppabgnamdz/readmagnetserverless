@@ -1,15 +1,13 @@
 const rp = require('request-promise');
 const jsdom = require('jsdom');
 const { JSDOM } = jsdom;
-const ObjectsToCsv = require('objects-to-csv');
-const path = require('path');
 const AWS = require('aws-sdk');
+const moment = require('moment');
 
 const USERS_TABLE = process.env.USERS_TABLE;
 const dynamoDbClient = new AWS.DynamoDB.DocumentClient();
 
 const readMagnet = async () => {
-	console.log('hello read magnet');
 	let start = 0;
 	let end = 1;
 	let host = 'https://sukebei.nyaa.si/?s=leechers&o=desc';
@@ -51,7 +49,11 @@ const readMagnet = async () => {
 			return { url: item };
 		});
 		const mappingPut = mapping.map((item, index) => {
-			return { PutRequest: { Item: { userId: item?.url } } };
+			return {
+				PutRequest: {
+					Item: { userId: item?.url, date: moment().format('YYYY-MM-DD') },
+				},
+			};
 		});
 		const slice = Math.ceil(mappingPut.length / 25);
 		for (let i = 0; i < slice; i++) {
