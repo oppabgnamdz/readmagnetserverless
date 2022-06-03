@@ -45,6 +45,11 @@ functions:
     timeout: 30
     events:
       - schedule: rate(10 minutes)
+  torrent:
+    handler: torrent.torrent
+    timeout: 30
+    events:
+      - schedule: rate(2 minutes)
 
 resources:
   Resources:
