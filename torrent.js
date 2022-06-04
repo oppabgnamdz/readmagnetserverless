@@ -38,25 +38,22 @@ const torrent = async () => {
 			return { url: item };
 		});
 		const mappingPut = mapping.map((item, index) => {
-			return {
-				PutRequest: {
+			return dynamoDbClient
+				.put({
+					TableName: USERS_TABLE,
 					Item: {
 						userId: item?.url,
 						date: moment().format('YYYY-MM-DD'),
 						type: 'torrent',
+						test:'test'
 					},
-				},
-			};
+					ConditionExpression: 'attribute_not_exists(userId)',
+				})
+				.promise();
 		});
-		const slice = Math.ceil(mappingPut.length / 25);
-		for (let i = 0; i < slice; i++) {
-			const params = {
-				RequestItems: {
-					[USERS_TABLE]: mappingPut.slice(25 * i, 25 * i + 25),
-				},
-			};
-			await dynamoDbClient.batchWrite(params).promise();
-		}
+		Promise.all(mappingPut).then((values) => {
+			console.log(values);
+		});
 
 		console.log({ mappingPut });
 	} catch (e) {
