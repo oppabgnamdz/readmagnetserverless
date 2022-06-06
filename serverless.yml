@@ -52,9 +52,9 @@ functions:
       - schedule: rate(20 minutes)
   torrentByDate:
     handler: torrentByDate.torrentByDate
-    timeout: 300
+    timeout: 900
     events:
-      - schedule: rate(10 minutes)
+      - schedule: rate(2 minutes)
 
 resources:
   Resources:

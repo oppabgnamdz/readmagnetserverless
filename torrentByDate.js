@@ -10,7 +10,7 @@ const dynamoDbClient = new AWS.DynamoDB.DocumentClient();
 const torrentByDate = async () => {
 	let start = 0;
 	let end = 200;
-	let subtractDay = 10;
+	let subtractDay = 3;
 	let base = 'https://jav-torrent.org';
 
 	for (let day = 0; day < subtractDay; day++) {
