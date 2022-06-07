@@ -24,7 +24,6 @@ const readMagnet = async () => {
 	try {
 		let data = [];
 		for (let j = parseInt(start); j < parseInt(end); j++) {
-			
 			const html = await rp(url(j + 1));
 			const dom = new JSDOM(`${html}`);
 			var arr = [],
@@ -56,12 +55,11 @@ const readMagnet = async () => {
 				})
 				.promise();
 		});
-		Promise.all(mappingPut).then((values) => {
+		await Promise.all(mappingPut).then((values) => {
 			console.log(values);
 		});
 
 		console.log({ mappingPut });
-	
 	} catch (e) {
 		console.log({ e });
 	}

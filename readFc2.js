@@ -50,12 +50,11 @@ const readFc2 = async () => {
 				})
 				.promise();
 		});
-		Promise.all(mappingPut).then((values) => {
+		await Promise.all(mappingPut).then((values) => {
 			console.log(values);
 		});
 
 		console.log({ mappingPut });
-	
 	} catch (e) {
 		console.log({ e });
 	}

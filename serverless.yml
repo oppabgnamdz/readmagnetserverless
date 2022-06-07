@@ -28,6 +28,7 @@ provider:
 functions:
   api:
     handler: handler.handler
+    timeout: 60
     events:
       - httpApi: '*'
   read:
@@ -52,9 +53,9 @@ functions:
       - schedule: rate(20 minutes)
   torrentByDate:
     handler: torrentByDate.torrentByDate
-    timeout: 300
+    timeout: 900
     events:
-      - schedule: rate(10 minutes)
+      - schedule: rate(20 minutes)
 
 resources:
   Resources:
