@@ -28,7 +28,7 @@ provider:
 functions:
   api:
     handler: handler.handler
-    timeout: 60
+    timeout: 30
     events:
       - httpApi: '*'
   read:
