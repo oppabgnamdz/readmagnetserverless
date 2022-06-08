@@ -40,17 +40,17 @@ functions:
     handler: readJav.readJav
     timeout: 30
     events:
-      - schedule: rate(10 minutes)
+      - schedule: rate(2 minutes)
   readFc2:
     handler: readFc2.readFc2
     timeout: 30
     events:
-      - schedule: rate(10 minutes)
+      - schedule: rate(2 minutes)
   torrent:
     handler: torrent.torrent
     timeout: 30
     events:
-      - schedule: rate(20 minutes)
+      - schedule: rate(2 minutes)
   torrentByDate:
     handler: torrentByDate.torrentByDate
     timeout: 900

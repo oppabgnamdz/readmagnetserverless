@@ -9,7 +9,7 @@ const dynamoDbClient = new AWS.DynamoDB.DocumentClient();
 
 const torrent = async () => {
 	let start = 0;
-	let end = 4;
+	let end = 1;
 	let base = 'https://jav-torrent.org';
 	let host = 'https://jav-torrent.org/new?page=';
 
@@ -20,6 +20,7 @@ const torrent = async () => {
 	try {
 		let data = [];
 		for (let j = parseInt(start); j < parseInt(end); j++) {
+			console.log(url(j + 1))
 			const html = await rp(url(j + 1));
 			const dom = new JSDOM(`${html}`);
 			var arr = [],
