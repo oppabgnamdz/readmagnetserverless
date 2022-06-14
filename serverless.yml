@@ -46,11 +46,11 @@ functions:
     timeout: 30
     events:
       - schedule: rate(2 minutes)
-  # torrent:
-  #   handler: torrent.torrent
-  #   timeout: 30
-  #   events:
-  #     - schedule: rate(2 minutes)
+  handleDelete:
+    handler: handleDelete.handleDelete
+    timeout: 30
+    events:
+      - schedule: rate(1440 minutes)
   torrentByDate:
     handler: torrentByDate.torrentByDate
     timeout: 900
