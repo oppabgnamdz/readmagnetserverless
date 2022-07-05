@@ -3,11 +3,11 @@ const jsdom = require('jsdom');
 const { JSDOM } = jsdom;
 const AWS = require('aws-sdk');
 const moment = require('moment');
-// asda sdasd a
+
 const USERS_TABLE = process.env.USERS_TABLE;
 const dynamoDbClient = new AWS.DynamoDB.DocumentClient();
 
-const torrentByDate = async () => {
+const torrentByDate2 = async () => {
 	let start = 0;
 	let end = 200;
 	let subtractDay = 2;
@@ -48,15 +48,14 @@ const torrentByDate = async () => {
 					.put({
 						TableName: USERS_TABLE,
 						Item: {
-							userId: item?.url,
+							userId: '/leech ' + item?.url,
 							date: moment().subtract(day, 'd').format('YYYY-MM-DD'),
-							type: 'torrent-day',
+							type: 'torrent-day2',
 						},
 						ConditionExpression: 'attribute_not_exists(userId)',
 					})
 					.promise();
 			});
-			//asdasd
 			await Promise.all(mappingPut).then((values) => {
 				console.log(values);
 			});
@@ -67,4 +66,4 @@ const torrentByDate = async () => {
 		}
 	}
 };
-module.exports.torrentByDate = torrentByDate;
+module.exports.torrentByDate2 = torrentByDate2;
